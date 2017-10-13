@@ -1,0 +1,30 @@
+{
+  "name": "megaraid-info",
+  "version": "0.0.1",
+  "description": "Information about MegaRAID controllers",
+  "keywords": [
+    "megaraid",
+    "lsi",
+    "raid",
+    "storage",
+    "lsilogic"
+  ],
+  "author": "Mark Ablovatskii <mark.ablov@gmail.com>",
+  "devDependencies": {},
+  "main": "src/main.js",
+  "os": [
+    "win32"
+  ],
+  "preferGlobal": false,
+  "dependencies": {
+    "is-admin": "^2.1.1",
+    "win_ioctl": "0.0.3"
+  },
+  "readmeFilename": "README.md",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/markablov/megaraid_info.git"
+  },
+  "license": "MIT"
+}
