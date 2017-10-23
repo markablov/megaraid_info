@@ -1,16 +1,28 @@
-const fs = require('fs');
+const detector = require('./windows/detector.js');
+const winston = require('winston');
 
-const transport = require('./transport.js');
-const megaraid = require('./megaraid.js');
+// XXX: configure debug level through arguments
+winston.configure(
+{
+    level: 'debug',
+    transports:
+    [
+        new winston.transports.Console(
+        {
+            format: winston.format.printf(info => `[${info.level}] ${info.message}`)
+        })
+    ]
+});
 
-(async function(){
+(async () =>
+{
     try
     {
-        await transport.check_requirments();
-        let drives = await transport.list_drives();
-        console.log(drives);
+        await detector.check_requirements();
+        let drives = await detector.list_controllers();
+        winston.info('List of controllers found: ' + drives.map(x => '#'+x).join(', '));
     } catch (err)
     {
-        console.log(err);
+        winston.error(err.message);
     }
 })();

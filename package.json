@@ -18,7 +18,9 @@
   "preferGlobal": false,
   "dependencies": {
     "is-admin": "^2.1.1",
-    "win_ioctl": "0.0.3"
+    "ref-struct": "^1.1.0",
+    "win_ioctl": "0.0.3",
+    "winston": "^3.0.0-rc1"
   },
   "readmeFilename": "README.md",
   "scripts": {},
