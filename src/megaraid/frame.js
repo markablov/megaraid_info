@@ -1,6 +1,7 @@
 const ref = require('ref');
 const ref_buffer_type = require('../ref-buffer-type.js');
 const ref_struct = require('ref-struct');
+const mr_data = require('./data.js');
 
 let E = {const: {}, types: {}};
 
@@ -34,7 +35,9 @@ E.const.FRAME_CMD =
 
 E.const.DCMD =
 {
-    CHECK: [0xf0020300, 4]
+    CHECK: [0xf0020300, 4],
+    LD_GET_LIST: [0x03010000, mr_data.types.mfi_ld_list.size],
+    LD_GET_INFO: [0x03020000, mr_data.types.mfi_ld_info.size]
 };
 
 const uint8 = ref.types.uint8;
@@ -72,14 +75,14 @@ const DCMDFrame = E.types.DCMDFrame = ref_struct(
     // even if i decide to fill sgl, it should be done by transport layer
 });
 
-E.build_dcmd_frame = (opcode, outSize, inSize = 0) =>
+E.build_dcmd_frame = (opcode, outSize, mbox, inSize = 0) =>
 {
     let frame = new DCMDFrame(), hdr = frame.hdr;
     hdr.cmd = E.const.FRAME_CMD.MFI_CMD_DCMD;
     hdr.sense_len = 0;
     hdr.cmd_status = 0xFF;
     hdr.scsi_status = 0;
-    // XXX: need to support multiply devices
+    // XXX: need to support multiply devices through one controller
     hdr.target_id = 0;
     hdr.lun_id = 0;
     hdr.cdb_len = inSize;
@@ -91,6 +94,8 @@ E.build_dcmd_frame = (opcode, outSize, inSize = 0) =>
     hdr.timeout = 0;
     hdr.data_len = outSize;
     frame.opcode = opcode;
+    if (mbox)
+        frame.mbox = mbox;
     return frame;
 };
 

@@ -12,14 +12,19 @@
   "author": "Mark Ablovatskii <mark.ablov@gmail.com>",
   "devDependencies": {},
   "main": "src/main.js",
-  "bin": {"megaraid_info": "src/main.js"},
+  "bin": {
+    "megaraid_info": "src/main.js"
+  },
   "os": [
     "win32"
   ],
   "preferGlobal": true,
   "dependencies": {
     "is-admin": "^2.1.1",
+    "prettysize": "^1.1.0",
+    "ref-array": "^1.2.0",
     "ref-struct": "^1.1.0",
+    "ref-union": "^1.0.1",
     "win_ioctl": "0.0.3",
     "winston": "^3.0.0-rc1"
   },
