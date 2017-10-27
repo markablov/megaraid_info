@@ -15,16 +15,16 @@ const raidlvl2str = (primary, secondary) =>
 {
     switch (primary)
     {
-        case mr_data.const.raid_level.DDF_RAID0: return 'RAID 0';
-        case mr_data.const.raid_level.DDF_RAID1: return secondary == 0 ? 'RAID 1' : 'RAID 10';
-        case mr_data.const.raid_level.DDF_RAID1E: return 'RAID 1E';
-        case mr_data.const.raid_level.DDF_RAID3: return 'RAID 3';
-        case mr_data.const.raid_level.DDF_RAID5: return secondary == 0 ? 'RAID 5' : 'RAID 50';
-        case mr_data.const.raid_level.DDF_RAID5E: return 'RAID 5E';
-        case mr_data.const.raid_level.DDF_RAID5EE: return 'RAID 5EE';
-        case mr_data.const.raid_level.DDF_RAID6: return secondary == 0 ? 'RAID 6' : 'RAID 60';
-        case mr_data.const.raid_level.DDF_JBOD: return 'JBOD';
-        case mr_data.const.raid_level.DDF_CONCAT: return 'CONCAT';
+    case mr_data.const.raid_level.DDF_RAID0: return 'RAID 0';
+    case mr_data.const.raid_level.DDF_RAID1: return secondary == 0 ? 'RAID 1' : 'RAID 10';
+    case mr_data.const.raid_level.DDF_RAID1E: return 'RAID 1E';
+    case mr_data.const.raid_level.DDF_RAID3: return 'RAID 3';
+    case mr_data.const.raid_level.DDF_RAID5: return secondary == 0 ? 'RAID 5' : 'RAID 50';
+    case mr_data.const.raid_level.DDF_RAID5E: return 'RAID 5E';
+    case mr_data.const.raid_level.DDF_RAID5EE: return 'RAID 5EE';
+    case mr_data.const.raid_level.DDF_RAID6: return secondary == 0 ? 'RAID 6' : 'RAID 60';
+    case mr_data.const.raid_level.DDF_JBOD: return 'JBOD';
+    case mr_data.const.raid_level.DDF_CONCAT: return 'CONCAT';
     }
 };
 
