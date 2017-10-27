@@ -6,14 +6,12 @@ const transport = require('./transport.js');
 const mr_frame = require('../megaraid/frame.js');
 
 let E = {};
-let _drives = [];
 
 let openAsync = idx => new Promise((resolve) =>
     fs.open(`\\\\.\\scsi${idx}:`, 'r+', (err, fd) => resolve(fd ? [idx, fd] : err)));
 
-E.open_controller = drive => _drives[drive] ?
-    openAsync(_drives[drive]).then(res => Array.isArray(res) ? res[1] : Promise.reject(res))
-    : Promise.reject(new Error('Unknown controller'));
+E.open_controller = drive =>
+    openAsync(drive).then(res => Array.isArray(res) ? res[1] : Promise.reject(res));
 
 // returns promise that resolves with drive index in case of success and null otherwise
 // should close fd
@@ -29,7 +27,7 @@ const check_controller = drive =>
 E.list_controllers = () => Promise.all([...Array(250).keys()].map(x => openAsync(x)))
     .then(drives => drives.filter(x => Array.isArray(x)))
     .then(drives => Promise.all(drives.map(x => check_controller(x))))
-    .then(drives => _drives = drives.filter(x => x !== null));
+    .then(drives => drives.filter(x => x !== null));
 
 E.check_requirements = () =>
     is_admin().then(admin => admin ? Promise.resolve() : Promise.reject(new Error('Script should be run with admin rights!')));
