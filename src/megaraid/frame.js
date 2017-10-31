@@ -36,8 +36,10 @@ E.const.FRAME_CMD =
 E.const.DCMD =
 {
     CHECK: [0xf0020300, 4],
+    PD_GET_INFO: [0x02020000, mr_data.types.mfi_pd_info.size],
     LD_GET_LIST: [0x03010000, mr_data.types.mfi_ld_list.size],
-    LD_GET_INFO: [0x03020000, mr_data.types.mfi_ld_info.size]
+    LD_GET_INFO: [0x03020000, mr_data.types.mfi_ld_info.size],
+    CFG_READ: [0x04010000, mr_data.types.mfi_config_data.size]
 };
 
 const uint8 = ref.types.uint8;

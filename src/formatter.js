@@ -4,7 +4,16 @@ let E = {};
 
 E.print_config = cfg =>
 {
-    console.log(cfg);
+    for (let idx in cfg)
+    {
+        let ld = cfg[idx];
+        console.log(`Volume #${idx} ${ld.state} ${ld.raid_level} ${pretty(ld.size)} ${ld.name}`);
+        ld.spans.forEach((x, i) =>
+        {
+            console.log(`  Span #${i} ${x.num_drives} drives by ${pretty(x.size)}`);
+            x.pds.forEach(pd => console.log(`    [${pd.id}] ${pd.state} ${pd.inquiry}`));
+        });
+    }
 };
 
 E.print_volumes = volumes =>

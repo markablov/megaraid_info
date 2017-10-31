@@ -31,7 +31,8 @@ winston.configure(
         // XXX: support only first controller
         let handle = await detector.open_controller(drives[0]);
         let ctrl = new Controller(handle);
-        formatter.print_volumes(await ctrl.volumes());
+        formatter.print_config(await ctrl.config());
+        // formatter.print_volumes(await ctrl.volumes());
     } catch (err)
     {
         winston.error(err.message);
