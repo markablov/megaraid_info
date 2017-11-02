@@ -3,10 +3,21 @@ const Controller = require('./controller.js');
 const formatter = require('./formatter.js');
 const winston = require('winston');
 
-// XXX: configure debug level through arguments
+const getopt = require('node-getopt').create(
+[
+    ['', 'verbose[=LEVEL]', 'LEVEL could be error, warn, info, verbose or debug'],
+    ['h' , 'help', 'display this help']
+])
+.bindHelp('Usage: megaraid_info [config | volumes | smart]\n\n[[OPTIONS]]\n');
+const opt = getopt.parseSystem();
+
+if (opt.argv.length > 1)
+    getopt.emit('help');
+let cmd = opt.argv[0] || 'config';
+
 winston.configure(
 {
-    level: 'debug',
+    level: opt.options.verbose || 'error',
     transports:
     [
         new winston.transports.Console(
@@ -31,8 +42,17 @@ winston.configure(
         // XXX: support only first controller
         let handle = await detector.open_controller(drives[0]);
         let ctrl = new Controller(handle);
-        formatter.print_config(await ctrl.config());
-        // formatter.print_volumes(await ctrl.volumes());
+        switch (cmd)
+        {
+        case 'config':
+            formatter.print_config(await ctrl.config());
+            break;
+        case 'volumes':
+            formatter.print_volumes(await ctrl.volumes());
+            break;
+        default:
+            getopt.emit('help');
+        }
     } catch (err)
     {
         winston.error(err.message);

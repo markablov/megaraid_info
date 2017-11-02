@@ -21,6 +21,7 @@
   "preferGlobal": true,
   "dependencies": {
     "is-admin": "^2.1.1",
+    "node-getopt": "^0.2.3",
     "prettysize": "^1.1.0",
     "ref-array": "^1.2.0",
     "ref-struct": "^1.1.0",
