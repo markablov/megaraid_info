@@ -117,7 +117,7 @@ class Controller
                     if (device_id == 0xFFFF)
                     {
                         ar_pds.push({id: encl_id, status: 'Missing'});
-                        return;
+                        continue;
                     }
                     let pd_info = await transport.send_packet(this.fd, mr_frame.build_dcmd_frame(...mr_frame.const.DCMD.PD_GET_INFO, Buffer.from([device_id & 0xFF, device_id >> 8])));
                     pd_info = ref.get(pd_info, 0, mr_data.types.mfi_pd_info);
