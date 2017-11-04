@@ -16,4 +16,4 @@ $ npm install megaraid_info -g
 Usage
 -----
 
-```$ megaraid_info```
+```$ megaraid_info [config | volumes]```
