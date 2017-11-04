@@ -12,13 +12,13 @@
   "author": "Mark Ablovatskii <mark.ablov@gmail.com>",
   "devDependencies": {},
   "main": "src/main.js",
+  "preferGlobal": true,
   "bin": {
     "megaraid_info": "src/main.js"
   },
   "os": [
     "win32"
   ],
-  "preferGlobal": true,
   "dependencies": {
     "is-admin": "^2.1.1",
     "node-getopt": "^0.2.3",
