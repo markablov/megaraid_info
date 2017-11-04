@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const detector = require('./windows/detector.js');
 const Controller = require('./controller.js');
 const formatter = require('./formatter.js');
