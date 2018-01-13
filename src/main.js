@@ -8,12 +8,9 @@ const winston = require('winston');
 const getopt = require('node-getopt').create([
   ['', 'verbose[=LEVEL]', 'LEVEL could be error, warn, info, verbose or debug'],
   ['h', 'help', 'display this help']
-]).bindHelp('Usage: megaraid_info [config | volumes | smart]\n\n[[OPTIONS]]\n');
+]).bindHelp('Usage: megaraid_info [config | volumes | smart DRIVE_ID]\n\n[[OPTIONS]]\n');
 
 const opt = getopt.parseSystem();
-
-if (opt.argv.length > 1)
-  getopt.emit('help');
 
 // let cmd = opt.argv[0] || 'config';
 let cmd = opt.argv[0] || 'smart';
@@ -45,7 +42,9 @@ winston.configure({
       formatter.print_volumes(await ctrl.volumes());
       break;
     case 'smart':
-      await ctrl.smart();
+      if (opt.argv < 2)
+        return getopt.emit('help');
+      await ctrl.smart(+opt.argv[1]);
       break;
     default:
       getopt.emit('help');

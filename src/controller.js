@@ -143,15 +143,15 @@ class Controller {
       let target_id = ld_list[i].ld.v.target_id;
       let info = await transport.send_packet(this.fd, mr_frame.build_dcmd_frame(...mr_frame.const.DCMD.LD_GET_INFO, Buffer.from([target_id])));
       info = ref.get(info, 0, mr_data.types.mfi_ld_info);
-      res[target_id] = Object.assign({size: info.size*512}, format_ld(info.ld_config));
+      res[target_id] = Object.assign({size: info.size * 512}, format_ld(info.ld_config));
     }
     return res;
   }
 
-  async smart() {
+  async smart(drive_id) {
     // INQUIRY SCSI command
     let cdb = Buffer.from([0x12, 0, 0, 0, 36, 0]);
-    let buf = await transport.send_packet(this.fd, mr_frame.build_pdscsiio_frame(cdb, 10, 36));
+    let buf = await transport.send_packet(this.fd, mr_frame.build_pdscsiio_frame(cdb, drive_id, 36));
     console.log(buf);
   }
 }
