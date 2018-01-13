@@ -111,9 +111,9 @@ E.build_dcmd_frame = (opcode, outSize, mbox, inSize = 0) => {
   return frame;
 };
 
-E.build_pdscsiio_frame = (cdb, outSize) => {
+E.build_pdscsiio_frame = (cdb, target, outSize) => {
   let frame = new PDSCSIIOFrame();
-  fill_frame_header(frame.hdr, E.const.FRAME_CMD.MFI_CMD_PD_SCSI_IO, 10, cdb ? cdb.byteLength : 0, outSize);
+  fill_frame_header(frame.hdr, E.const.FRAME_CMD.MFI_CMD_PD_SCSI_IO, target, cdb ? cdb.byteLength : 0, outSize);
   frame.sense_buf_phys_addr_lo = 0;
   frame.sense_buf_phys_addr_hi = 0;
   if (cdb)

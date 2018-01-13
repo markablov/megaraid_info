@@ -151,7 +151,7 @@ class Controller {
   async smart() {
     // INQUIRY SCSI command
     let cdb = Buffer.from([0x12, 0, 0, 0, 36, 0]);
-    let buf = await transport.send_packet(this.fd, mr_frame.build_pdscsiio_frame(cdb, 36));
+    let buf = await transport.send_packet(this.fd, mr_frame.build_pdscsiio_frame(cdb, 10, 36));
     console.log(buf);
   }
 }
