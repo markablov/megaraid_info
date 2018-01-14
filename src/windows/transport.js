@@ -26,7 +26,6 @@ const PACKET_OUTPUT_DATA_OFFSET = 188;
 const PACKET_MAGIC = 'LSILOGIC';
 
 E.send_packet = (fd, frame, unknown1 = 0, unknown2 = 0) => {
-  // console.log(frame);
   if (frame.hdr.cmd == mr_frame.const.FRAME_CMD.MFI_CMD_DCMD)
     winston.verbose('send_packet, cmd = 0x' + frame.opcode.toString(16));
   let packet = new Packet();

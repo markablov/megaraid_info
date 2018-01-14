@@ -12,12 +12,12 @@ const getopt = require('node-getopt').create([
 
 const opt = getopt.parseSystem();
 
-// let cmd = opt.argv[0] || 'config';
-let cmd = opt.argv[0] || 'smart';
+// opt.argv = ['smart', '10'];
+
+let cmd = opt.argv[0] || 'config';
 
 winston.configure({
   level: opt.options.verbose || 'error',
-//  level: opt.options.verbose || 'debug',
   transports: [
     new winston.transports.Console({format: winston.format.printf(info => `[${info.level}] ${info.message}`)})
   ]

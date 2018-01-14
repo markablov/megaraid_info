@@ -4,6 +4,7 @@ const transport = require('./windows/transport.js');
 const mr_frame = require('./megaraid/frame.js');
 const mr_data = require('./megaraid/data.js');
 const scsi_data = require('./megaraid/scsi_data.js');
+const SCSIDrive = require('./sata/scsi.js');
 
 const ldstate2str = {
   [mr_data.const.ld_state.MFI_LD_STATE_OFFLINE]: 'Offline',
@@ -149,10 +150,10 @@ class Controller {
   }
 
   async smart(drive_id) {
-    // INQUIRY SCSI command
-    let cdb = Buffer.from([0x12, 0, 0, 0, 36, 0]);
-    let buf = await transport.send_packet(this.fd, mr_frame.build_pdscsiio_frame(cdb, drive_id, 36));
-    console.log(buf);
+    let _this = this;
+    let drive = new SCSIDrive({send: (packet, outSize) => transport.send_packet(_this.fd, mr_frame.build_pdscsiio_frame(packet, drive_id, outSize))});
+    let info = await drive.inquiry();
+    console.log(info);
   }
 }
 
