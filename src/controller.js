@@ -5,6 +5,7 @@ const mr_frame = require('./megaraid/frame.js');
 const mr_data = require('./megaraid/data.js');
 const scsi_data = require('./megaraid/scsi_data.js');
 const SCSIDrive = require('./sata/scsi.js');
+const ATADrive = require('./sata/ata.js');
 
 const ldstate2str = {
   [mr_data.const.ld_state.MFI_LD_STATE_OFFLINE]: 'Offline',
@@ -151,8 +152,9 @@ class Controller {
 
   async smart(drive_id) {
     let _this = this;
-    let drive = new SCSIDrive({send: (packet, outSize) => transport.send_packet(_this.fd, mr_frame.build_pdscsiio_frame(packet, drive_id, outSize))});
-    let info = await drive.inquiry();
+    let scsiDrive = new SCSIDrive({send: (packet, outSize) => transport.send_packet(_this.fd, mr_frame.build_pdscsiio_frame(packet, drive_id, outSize))});
+    let ataDrive = new ATADrive({send: cmd => scsiDrive.ataPasstrough(cmd)});
+    let info = await ataDrive.identify();
     console.log(info);
   }
 }
